@@ -6,9 +6,9 @@
 }
 
 :root {
-    --primary: #de535b;
-    --primary-hover: #c84149;
-    --bg-light: #f8fafc;
+    --primary: #d84e55;
+    --primary-hover: #c14148;
+    --bg-light: #ffffff;
     --text-main: #1f2937;
     --text-muted: #4b5563;
     --white: #ffffff;
@@ -188,6 +188,13 @@ body {
 }
 
 /* Hero Banner Layout */
+.hero-bg-wrapper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
 .hero-banner {
     position: relative;
     height: 350px;
@@ -197,8 +204,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding-top: 100px;
-    overflow: hidden;
-    /* Keeps the parallax image inside */
+    /* overflow removed so children can pop out */
 }
 
 .banner-content {
@@ -236,32 +242,33 @@ body {
 .search-container {
     background: var(--white);
     border-radius: 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     max-width: 1150px;
     width: calc(100% - 2rem);
     position: absolute;
-    bottom: -45px;
-    /* Perfect overlap */
+    bottom: -45px; /* Perfect overlap */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 10;
+    padding: 1.5rem 1.5rem 3.5rem 1.5rem;
 }
 
 .search-box {
     display: flex;
     width: 100%;
-    padding: 1rem 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
 }
 
 .search-item {
     flex: 1;
     display: flex;
     align-items: center;
-    padding: 0.5rem 1.5rem;
-    gap: 1rem;
+    padding: 0.8rem 1.5rem;
+    gap: 1.2rem;
 }
 
 .border-right {
@@ -302,13 +309,13 @@ body {
     color: var(--white);
     border: none;
     border-radius: 30px;
-    padding: 1rem 3.5rem;
-    font-size: 1.2rem;
+    padding: 1.2rem 6rem;
+    font-size: 1.3rem;
     font-weight: 700;
     cursor: pointer;
     position: absolute;
-    bottom: -22px;
-    box-shadow: 0 5px 15px rgba(222, 83, 91, 0.4);
+    bottom: -30px;
+    box-shadow: 0 4px 14px 0 rgba(216, 78, 85, 0.5); /* Matching shadow glow */
     transition: transform 0.2s, background-color 0.2s;
 }
 
@@ -319,6 +326,980 @@ body {
 
 /* Flash Deals Section below Hero */
 .flash-deals {
-    padding: 8rem 2rem 4rem 2rem;
+    margin-top: 5.5rem; /* Extends exactly past the shadow to snap the white transition line */
+    padding: 3rem 2rem 4rem 2rem;
+    background-color: #facd97;
+    background-image: 
+        /* 1. Extended white border pushing further down before smoothly fading out */
+        linear-gradient(to bottom, #ffffff 0%, #ffffff 15%, rgba(255, 255, 255, 0) 45%),
+        
+        /* 2. Soft radial mask: clear near the logo to expose rays, solid orange far away to hide them */
+        radial-gradient(circle at 10% 20%, rgba(246, 175, 93, 0) 5%, rgba(246, 175, 93, 0.8) 50%, #f6ae5d 100%),
+        
+        /* 3. The actual sunburst repeating rays emitting from behind the logo position */
+        repeating-conic-gradient(
+            from 0deg at 10% 20%, 
+            #fae2c4 0deg 3.5deg, 
+            #fcd19e 3.5deg 7deg
+        );
     min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flash-container {
+    width: 100%;
+    max-width: 1150px;
+}
+
+.flash-deals-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.flash-deals-logo {
+    height: 60px; /* Placeholder size */
+    object-fit: contain;
+    transform: translateY(-8px);
+}
+
+.offer-timer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.offer-text {
+    font-size: 0.85rem;
+    color: #4b5563;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.timer-boxes {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.time-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.time-box strong {
+    background-color: #374151;
+    color: white;
+    padding: 0.3rem 0.4rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.time-box span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-top: 0.2rem;
+}
+
+/* Cards Carousel */
+.cards-carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+}
+
+.cards-carousel::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for clean look */
+}
+
+.hotel-card {
+    background: white;
+    border-radius: 12px;
+    min-width: 260px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.card-image-wrap {
+    position: relative;
+    height: 150px;
+    background-color: #e5e7eb; /* Placeholder background */
+}
+
+.card-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-rating {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    background: white;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+
+.card-ribbon {
+    background: #c25e03;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.7rem;
+    padding: 0.35rem 0.8rem;
+    margin: 0.6rem 0.6rem 0 0.6rem;
+    border-radius: 20px; /* Pill shape like target */
+    text-transform: none;
+}
+
+.card-details {
+    padding: 1rem;
+}
+
+.card-header, .card-title-row, .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hotel-type {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.old-price {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-decoration: line-through;
+}
+
+.card-title-row {
+    margin: 0.3rem 0;
+}
+
+.hotel-name {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 75%;
+}
+
+.new-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111827;
+}
+
+.card-footer {
+    align-items: flex-end;
+}
+
+.hotel-loc {
+    font-size: 0.75rem;
+    color: #6b7280;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+}
+
+.per-night {
+    font-size: 0.65rem;
+    color: #9ca3af;
+}
+
+/* Rooms & Guests Dropdown Popup */
+.position-relative {
+    position: relative;
+}
+
+.rooms-dropdown {
+    position: absolute;
+    top: -10px; /* Aligns visually with the input box top */
+    right: -10px;
+    width: 320px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    z-index: 20;
+    cursor: default;
+}
+
+.rooms-dropdown .dropdown-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.rooms-dropdown .dropdown-body {
+    padding: 0 1.2rem;
+}
+
+.dropdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 0;
+}
+
+.dropdown-row.border-bottom {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.row-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.row-label svg {
+    width: 24px;
+    height: 24px;
+    color: #111827;
+}
+
+.label-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-text strong {
+    font-size: 1rem;
+    color: #111827;
+}
+
+.label-text small {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.2rem;
+}
+
+/* Stepper logic */
+.stepper-control {
+    display: flex;
+    border: 1px solid #111827; /* Thin black border */
+    border-radius: 20px;
+    overflow: hidden;
+    height: 36px;
+}
+
+.stepper-control .step-btn {
+    background: #fdeaea; /* Light red/pink */
+    color: #111827;
+    border: none;
+    width: 36px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+.stepper-control .step-btn.disabled {
+    background: #f3f4f6; /* Light gray */
+    color: #9ca3af;
+}
+
+.stepper-control .step-btn.disabled svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+}
+
+.stepper-control .step-val {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    font-weight: 600;
+    border-left: 1px solid #111827;
+    border-right: 1px solid #111827;
+    font-size: 0.95rem;
+}
+
+.add-btn-large {
+    background: #fdeaea;
+    border: 1px solid #111827;
+    border-radius: 20px;
+    padding: 0.4rem 1.8rem;
+    font-weight: 600;
+    color: #111827;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.add-btn-large:hover, .step-btn:not(.disabled):hover {
+    background: #fad4d4;
+    transition: 0.2s ease-in-out;
+}
+
+/* Date Picker Dropdown Popup */
+.date-picker-container {
+    position: relative;
+}
+
+.date-dropdown {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 650px; /* Covers both check-in and check-out fields approx */
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    z-index: 20;
+    cursor: default;
+}
+
+.date-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.date-header-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+}
+
+.date-text small {
+    color: #6b7280;
+    font-size: 0.8rem;
+    line-height: 1;
+}
+
+.date-text strong {
+    font-size: 1.15rem;
+    color: #111827;
+    display: block;
+    margin-top: 0.1rem;
+}
+
+.date-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 1rem;
+    color: #6b7280;
+}
+
+.date-divider svg {
+    width: 20px;
+    height: 20px;
+}
+
+.date-divider span {
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+}
+
+.placeholder-text {
+    font-size: 1.15rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+/* Calendar Days Header */
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    padding: 1rem 1.5rem 0;
+    font-size: 0.85rem;
+    color: #6b7280;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1rem;
+}
+
+/* Calendar Body */
+.calendar-body {
+    padding: 1.5rem;
+}
+
+.calendar-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.cal-month-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.cal-nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #111827;
+}
+
+.cal-nav svg {
+    width: 20px;
+    height: 20px;
+}
+
+.cal-nav.disabled {
+    color: #d1d5db;
+    cursor: not-allowed;
+}
+
+/* Calendar Grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    row-gap: 1rem;
+    text-align: center;
+}
+
+.cal-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    margin: 0 auto;
+    border-radius: 50%;
+    font-size: 1rem;
+    color: #111827;
+    cursor: pointer;
+}
+
+.cal-day:hover:not(.empty):not(.disabled) {
+    background: #f3f4f6;
+}
+
+.cal-day.active {
+    background: #374151; /* Dark slate */
+    color: white;
+    font-weight: 600;
+}
+.cal-day.active:hover {
+    background: #111827;
+}
+
+.cal-day.text-red {
+    color: #ef4444; /* Bright red for weekends */
+}
+
+.cal-day.disabled {
+    color: #9ca3af;
+    cursor: default;
+}
+.cal-day.disabled:hover {
+    background: none;
+}
+
+/* City Dropdown Styling */
+.city-picker-container {
+    position: relative;
+}
+
+.city-dropdown {
+    position: absolute;
+    top: 55px; /* Sits right beneath the input */
+    left: 0;
+    width: 350px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    z-index: 20;
+    cursor: default;
+    overflow: hidden;
+}
+
+.location-btn-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.2rem;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #111827;
+}
+
+.location-btn-row:hover {
+    background: #f3f4f6;
+}
+
+.location-btn-row svg {
+    width: 20px;
+    height: 20px;
+}
+
+.dropdown-divider {
+    height: 8px;
+    background-color: #f3f4f6;
+    width: 100%;
+}
+
+.popular-cities-header {
+    padding: 1.2rem 1.2rem 0.5rem 1.2rem;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.cities-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cities-list li {
+    padding: 1rem 1.2rem;
+    border-top: 1px solid #f3f4f6;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #111827;
+}
+
+.cities-list li:hover {
+    background: #f9fafb;
+}
+
+/* Carousel Navigation Container */
+.carousel-container {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+
+.carousel-nav:hover {
+    background: #f9fafb;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.carousel-nav svg {
+    width: 24px;
+    height: 24px;
+}
+
+.left-nav {
+    left: -22px;
+}
+
+.right-nav {
+    right: -22px;
+}
+
+/* New Sections Spacing */
+.section-container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 1.5rem;
+}
+
+/* Budget Collection Styles */
+.budget-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.budget-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 240px;
+    background: #f3f4f8;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.budget-card:hover {
+    transform: translateY(-8px);
+}
+
+.budget-img-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.budget-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.budget-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 0.6rem 1.6rem;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 130px;
+    box-shadow: -4px -4px 15px rgba(0,0,0,0.15);
+}
+
+.badge-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.9;
+    margin-bottom: -0.2rem;
+}
+
+.badge-price {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.badge-purple {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+    border-left: 2px solid rgba(255,255,255,0.2);
+}
+
+.badge-blue {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.badge-dark-purple {
+    background: linear-gradient(135deg, #701a75 0%, #4c0519 100%);
+}
+
+/* Value Stays Styles */
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.section-subtitle {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-top: -1.2rem;
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.value-card {
+    position: relative;
+    height: 280px;
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.value-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.value-card:hover img {
+    /* Zoom deleted as requested */
+}
+
+.value-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.8rem;
+    color: white;
+}
+
+.value-overlay h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.value-overlay p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+    font-weight: 500;
+}
+
+.value-badge {
+    position: absolute;
+    bottom: 22px;
+    left: 28px;
+    background-color: #d84e55;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 992px) {
+    .budget-grid, .value-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .budget-grid, .value-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Only on redBus Section */
+.only-on-redbus {
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 0;
+    margin-top: 1.5rem;
+}
+
+.sunburst-bg {
+    position: absolute;
+    inset: 0;
+    background-color: #ffc700;
+    background-image: repeating-conic-gradient(
+        from 0deg at 50% 50%,
+        #ffc700 0deg 12deg,
+        #fbad17 12deg 24deg
+    );
+}
+
+.zig-zag {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 14px;
+    z-index: 5;
+    background-image: 
+        linear-gradient(135deg, white 25%, transparent 25%),
+        linear-gradient(225deg, white 25%, transparent 25%);
+    background-size: 24px 24px;
+    background-repeat: repeat-x;
+}
+
+.zig-zag.top {
+    top: -1px;
+}
+
+.zig-zag.bottom {
+    bottom: -1px;
+    transform: rotate(180deg);
+}
+
+.promo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.promo-card {
+    height: 180px;
+    border-radius: 18px;
+    padding: 1.5rem;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px);
+    background-size: 8px 8px;
+}
+
+.promo-lavender { background-color: #f1f1ff; }
+.promo-green { background-color: #f0fff4; }
+.promo-cyan { background-color: #e6fbff; }
+
+.promo-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+}
+
+.promo-text h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1f2937;
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+}
+
+.promo-text p {
+    font-size: 0.85rem;
+    color: #4b5563;
+    font-weight: 600;
+}
+
+.coupon-pill {
+    background: white;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    width: fit-content;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px dashed #d1d5db;
+}
+
+.tag-icon {
+    width: 18px;
+    height: 18px;
+    color: #4b5563;
+}
+
+.coupon-pill span {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #1f2937;
+    letter-spacing: 0.5px;
+}
+
+.promo-illust {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 130px;
+    display: flex;
+    align-items: flex-end;
+    pointer-events: none;
+}
+
+.promo-illust img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+
+@media (max-width: 992px) {
+    .promo-grid {
+        grid-template-columns: 1fr;
+    }
+    .promo-card {
+        height: 160px;
+    }
+}
+
+/* Footer Section */
+.main-footer {
+    background-color: #f0f2f8; /* Light lavender/greyish background */
+    padding: 5rem 0;
+    margin-top: 3rem;
+}
+
+.main-footer .footer-container {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem;
+}
+
+.footer-column h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2rem;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    margin-bottom: 1rem;
+}
+
+.footer-column ul li a {
+    text-decoration: none;
+    color: #1d4ed8; /* Blue links from screenshot */
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.footer-column ul li a:hover {
+    color: #1a1a1a;
+    text-decoration: underline;
+}
+
+@media (max-width: 992px) {
+    .main-footer .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .main-footer .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: left;
+    }
 }

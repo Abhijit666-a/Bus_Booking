@@ -77,9 +77,11 @@
 
     <main>
         <section class="hero-banner">
-            <!-- Parallax Hero Image using user-provided CSS classes and animation -->
-            <img src="assets/index_image.png" alt="" aria-hidden="true" class="TzjDcCME" loading="eager"
-                data-reveal-bound="1" data-reveal="loaded">
+            <!-- Parallax wrapper to keep image contained without clipping overlapping content -->
+            <div class="hero-bg-wrapper">
+                <img src="assets/index_image.png" alt="" aria-hidden="true" class="TzjDcCME" loading="eager"
+                    data-reveal-bound="1" data-reveal="loaded">
+            </div>
 
             <div class="banner-content">
                 <h1>Pocket friendly, Verified stays</h1>
@@ -96,7 +98,7 @@
 
             <div class="search-container">
                 <div class="search-box">
-                    <div class="search-item border-right">
+                    <div class="search-item border-right position-relative city-item" style="cursor: pointer;">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"></circle>
@@ -104,10 +106,29 @@
                         </svg>
                         <div class="input-group">
                             <label>City, area or hotel name</label>
-                            <input type="text" value="" placeholder="Enter city" />
+                            <input type="text" id="city-input" value="" placeholder="Enter city" autocomplete="off" style="cursor: text;" />
+                        </div>
+
+                        <!-- City Dropdown -->
+                        <div class="city-dropdown" style="display: none;">
+                            <div class="location-btn-row">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="2" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22"></line><line x1="2" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22" y2="12"></line></svg>
+                                <span>Use precise location</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="popular-cities-header">
+                                <strong>Popular Cities</strong>
+                            </div>
+                            <ul class="cities-list">
+                                <li class="city-option">Mumbai</li>
+                                <li class="city-option">Pune</li>
+                                <li class="city-option">Nagpur</li>
+                                <li class="city-option">Nashik</li>
+                                <li class="city-option">Aurangabad</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="search-item border-right">
+                    <div class="search-item border-right position-relative date-picker-container checkin-item" style="cursor: pointer;">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -117,10 +138,55 @@
                         </svg>
                         <div class="input-group">
                             <label>Check in</label>
-                            <input type="text" value="" placeholder="Select date" />
+                            <input type="text" value="13 Apr, Mon" readonly style="cursor: pointer;" />
+                        </div>
+
+                        <!-- Date Picker Dropdown -->
+                        <div class="date-dropdown" style="display: none;">
+                            <div class="date-header-row">
+                                <div class="date-header-item active">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="input-icon" style="width: 24px; height: 24px; color: #111827;">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    <div class="date-text" style="line-height: 1.2;">
+                                        <small style="color: #6b7280; font-size: 0.75rem;">Check in</small><br>
+                                        <strong style="font-size: 1.1rem; color: #111827;">Select dates</strong>
+                                    </div>
+                                </div>
+                                <div class="date-divider">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                    <span>Night</span>
+                                </div>
+                                <div class="date-header-item inactive" style="flex: 1.2;">
+                                    <div class="date-text">
+                                        <span class="placeholder-text" style="font-size: 1.1rem; color: #6b7280;">Select Check out date</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="calendar-days-header">
+                                <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                            </div>
+
+                            <div class="calendar-body">
+                                <div class="calendar-title-row">
+                                    <button class="cal-nav disabled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
+                                    <div class="cal-month-title">April 2026</div>
+                                    <button class="cal-nav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+                                </div>
+
+                                <div class="calendar-grid">
+                                    <div class="cal-day empty"></div><div class="cal-day empty"></div>
+                                    <div class="cal-day disabled text-muted">1</div><div class="cal-day disabled text-muted">2</div><div class="cal-day disabled text-muted">3</div><div class="cal-day disabled text-muted">4</div><div class="cal-day disabled text-muted">5</div>
+                                    <div class="cal-day disabled text-muted">6</div><div class="cal-day disabled text-muted">7</div><div class="cal-day disabled text-muted">8</div><div class="cal-day disabled text-muted">9</div><div class="cal-day disabled text-muted">10</div><div class="cal-day disabled text-muted">11</div><div class="cal-day disabled text-muted">12</div>
+                                    <div class="cal-day active">13</div><div class="cal-day">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day">17</div><div class="cal-day text-red">18</div><div class="cal-day text-red">19</div>
+                                    <div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day">23</div><div class="cal-day">24</div><div class="cal-day text-red">25</div><div class="cal-day text-red">26</div>
+                                    <div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="search-item border-right">
+                    <div class="search-item border-right checkout-item" style="cursor: pointer;">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
@@ -130,10 +196,10 @@
                         </svg>
                         <div class="input-group">
                             <label>Check out</label>
-                            <input type="text" value="" placeholder="Select date" />
+                            <input type="text" value="14 Apr, Tue" readonly style="cursor: pointer;" />
                         </div>
                     </div>
-                    <div class="search-item">
+                    <div class="search-item position-relative rooms-guests-item" style="cursor: pointer;">
                         <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
@@ -143,7 +209,82 @@
                         </svg>
                         <div class="input-group">
                             <label>No. of rooms &amp; guests</label>
-                            <input type="text" value="" placeholder="Rooms & Guests" />
+                            <input type="text" id="rooms-guests-input" value="1 Room · 2 Adults" readonly style="cursor: pointer;" />
+                        </div>
+
+                        <!-- Dropdown Popup -->
+                        <div class="rooms-dropdown" style="display: none;">
+                            <div class="dropdown-header">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <span>Select no. of rooms & guests</span>
+                            </div>
+                            <div class="dropdown-body">
+                                <div class="dropdown-row border-bottom">
+                                    <div class="row-label">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M3 21h18"></path><path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16"></path><path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"></path>
+                                        </svg>
+                                        <div class="label-text">
+                                            <strong>Rooms</strong>
+                                        </div>
+                                    </div>
+                                    <div class="stepper-control">
+                                        <button class="step-btn disabled" id="btn-rooms-minus" type="button">
+                                            <svg id="icon-rooms-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                            <span id="icon-rooms-minus" style="display: none;">−</span>
+                                        </button>
+                                        <span class="step-val" id="val-rooms">1</span>
+                                        <button class="step-btn add" id="btn-rooms-plus" type="button">+</button>
+                                    </div>
+                                </div>
+                                <div class="dropdown-row border-bottom">
+                                    <div class="row-label">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                        </svg>
+                                        <div class="label-text">
+                                            <strong>Adults</strong>
+                                            <small>18 years & above</small>
+                                        </div>
+                                    </div>
+                                    <div class="stepper-control">
+                                        <button class="step-btn minus" id="btn-adults-minus" type="button">−</button>
+                                        <span class="step-val" id="val-adults">2</span>
+                                        <button class="step-btn add" id="btn-adults-plus" type="button">+</button>
+                                    </div>
+                                </div>
+                                <div class="dropdown-row">
+                                    <div class="row-label">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line>
+                                        </svg>
+                                        <div class="label-text">
+                                            <strong>Children</strong>
+                                            <small>0-17 years</small>
+                                        </div>
+                                    </div>
+                                    <div class="stepper-control" id="stepper-children" style="display: none;">
+                                        <button class="step-btn minus" id="btn-children-minus" type="button">
+                                            <svg id="icon-children-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none; width: 16px; height: 16px;">
+                                                <polyline points="3 6 5 6 21 6"></polyline>
+                                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                            </svg>
+                                            <span id="icon-children-minus">−</span>
+                                        </button>
+                                        <span class="step-val" id="val-children">0</span>
+                                        <button class="step-btn add" id="btn-children-plus" type="button">+</button>
+                                    </div>
+                                    <button class="add-btn-large" id="btn-children-add" type="button">+ Add</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -152,11 +293,568 @@
         </section>
 
         <section class="flash-deals">
-            <!-- Space for gradient background as in screenshot -->
-            <div class="deals-content">
+            <div class="flash-container">
+                <div class="flash-deals-header">
+                    <div class="flash-logo-wrapper">
+                        <!-- User will add actual logo image path here -->
+                        <img src="assets/flash_deals_logo_demo.png" alt="Flash Deals" class="flash-deals-logo">
+                    </div>
+                    <div class="offer-timer">
+                        <span class="offer-text">Offer ends in</span>
+                        <div class="timer-boxes">
+                            <div class="time-box"><strong id="timer-hr">02</strong><span>hr</span></div>
+                            <div class="time-box"><strong id="timer-min">02</strong><span>min</span></div>
+                            <div class="time-box"><strong id="timer-sec">53</strong><span>sec</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-container position-relative">
+                    <button class="carousel-nav left-nav" style="display: none;" aria-label="Previous">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <div class="cards-carousel" id="hotel-carousel">
+                        <!-- Card 1 -->
+                    <div class="hotel-card">
+                        <div class="card-image-wrap">
+                            <!-- User will add actual hotel image path here -->
+                            <img src="assets/demo_hotel_1.png" alt="Hotel">
+                            <div class="card-rating">★ 3.6 <span>1844</span></div>
+                        </div>
+                        <div class="card-ribbon">Flash deal · 83% off</div>
+                        <div class="card-details">
+                            <div class="card-header">
+                                <span class="hotel-type">Hotel · Bangalore</span>
+                                <span class="old-price">₹1886</span>
+                            </div>
+                            <div class="card-title-row">
+                                <h3 class="hotel-name">ESSOTTO RECREATION HUB</h3>
+                                <span class="new-price">₹324</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="hotel-loc">Brookefield</span>
+                                <span class="per-night">Per night</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="hotel-card">
+                        <div class="card-image-wrap">
+                            <img src="assets/demo_hotel_2.png" alt="Hotel">
+                            <div class="card-rating">★ 4.8 <span>227</span></div>
+                        </div>
+                        <div class="card-ribbon">Flash deal · 62% off</div>
+                        <div class="card-details">
+                            <div class="card-header">
+                                <span class="hotel-type">Hostel · Bangalore</span>
+                                <span class="old-price">₹1116</span>
+                            </div>
+                            <div class="card-title-row">
+                                <h3 class="hotel-name">Loop by Zolo</h3>
+                                <span class="new-price">₹419</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="hotel-loc">Koramangala, Bangalore</span>
+                                <span class="per-night">Per night</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="hotel-card">
+                        <div class="card-image-wrap">
+                            <img src="assets/demo_hotel_3.png" alt="Hotel">
+                            <div class="card-rating">★ 4.7 <span>120</span></div>
+                        </div>
+                        <div class="card-ribbon">Flash deal · 49% off</div>
+                        <div class="card-details">
+                            <div class="card-header">
+                                <span class="hotel-type">Apartment · Bangalore</span>
+                                <span class="old-price">₹2340</span>
+                            </div>
+                            <div class="card-title-row">
+                                <h3 class="hotel-name">UPAR Hotels Brookefield</h3>
+                                <span class="new-price">₹1196</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="hotel-loc">Brookefield</span>
+                                <span class="per-night">Per night</span>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Card 4 -->
+                     <div class="hotel-card">
+                        <div class="card-image-wrap">
+                            <img src="assets/demo_hotel_4.png" alt="Hotel">
+                            <div class="card-rating">★ 3.3 <span>592</span></div>
+                        </div>
+                        <div class="card-ribbon">Flash deal · 55% off</div>
+                        <div class="card-details">
+                            <div class="card-header">
+                                <span class="hotel-type">Hotel · Bangalore</span>
+                                <span class="old-price">₹3207</span>
+                            </div>
+                            <div class="card-title-row">
+                                <h3 class="hotel-name">HOTEL SCARLET</h3>
+                                <span class="new-price">₹1455</span>
+                            </div>
+                            <div class="card-footer">
+                                <span class="hotel-loc">ORR - Marathahalli</span>
+                                <span class="per-night">Per night</span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="carousel-nav right-nav" aria-label="Next">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                </div>
             </div>
         </section>
-    </main>
-</body>
+        <section class="budget-collection">
+            <div class="section-container">
+                <h2 class="section-title">The Budget Collection</h2>
+                <div class="budget-grid">
+                    <div class="budget-card">
+                        <div class="budget-img-wrap">
+                            <img src="assets/demo_budget_1.png" alt="999" onerror="this.style.opacity='0';">
+                            <div class="budget-badge badge-purple">
+                                <span class="badge-text">Under</span>
+                                <span class="badge-price">₹999</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="budget-img-wrap">
+                            <img src="assets/demo_budget_2.png" alt="799" onerror="this.style.opacity='0';">
+                            <div class="budget-badge badge-blue">
+                                <span class="badge-text">Under</span>
+                                <span class="badge-price">₹799</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="budget-card">
+                        <div class="budget-img-wrap">
+                            <img src="assets/demo_budget_3.png" alt="499" onerror="this.style.opacity='0';">
+                            <div class="budget-badge badge-dark-purple">
+                                <span class="badge-text">Under</span>
+                                <span class="badge-price">₹499</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section class="value-stays">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">Value Stays</h2>
+                    <p class="section-subtitle">For travellers who love to save</p>
+                </div>
+                <div class="value-grid">
+                    <div class="value-card">
+                        <img src="assets/demo_value_1.png" alt="Hotels" onerror="this.style.opacity='0';">
+                        <div class="value-overlay">
+                            <h3>Hotels</h3>
+                            <p>Affordable & comfortable rooms</p>
+                        </div>
+                        <div class="value-badge">Upto 35% off</div>
+                    </div>
+                    <div class="value-card">
+                        <img src="assets/demo_value_2.png" alt="Hostels" onerror="this.style.opacity='0';">
+                        <div class="value-overlay">
+                            <h3>Hostels</h3>
+                            <p>Happy deals on dorm rooms</p>
+                        </div>
+                        <div class="value-badge">Upto 45% off</div>
+                    </div>
+                    <div class="value-card">
+                        <img src="assets/demo_value_3.png" alt="Homestays" onerror="this.style.opacity='0';">
+                        <div class="value-overlay">
+                            <h3>Homestays</h3>
+                            <p>Perfect for group bookings</p>
+                        </div>
+                        <div class="value-badge">Upto 40% off</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="only-on-redbus">
+            <div class="sunburst-bg"></div>
+            <div class="zig-zag top"></div>
+            <div class="section-container">
+                <h2 class="section-title">Only on redBus</h2>
+                <div class="promo-grid">
+                    <div class="promo-card promo-lavender">
+                        <div class="promo-content">
+                            <div class="promo-text">
+                                <h3>Flat 15% Instant Off</h3>
+                                <p>Valid till 31 Dec</p>
+                            </div>
+                            <div class="coupon-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                                <span>REDSTAYS</span>
+                            </div>
+                        </div>
+                        <div class="promo-illust">
+                            <img src="https://www.redbus.in/steward/visuals/v2/REDSTAYS/REDSTAYS.png" alt="Illust" onerror="this.style.opacity='0';">
+                        </div>
+                    </div>
+                    
+                    <div class="promo-card promo-green">
+                        <div class="promo-content">
+                            <div class="promo-text">
+                                <h3>12% Off in Select Cities</h3>
+                                <p>Valid till 31 Dec</p>
+                            </div>
+                            <div class="coupon-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                                <span>PILGRIMPASS</span>
+                            </div>
+                        </div>
+                        <div class="promo-illust">
+                            <img src="https://www.redbus.in/steward/visuals/v2/PILGRIMPASS/PILGRIMPASS.png" alt="Illust" onerror="this.style.opacity='0';">
+                        </div>
+                    </div>
+
+                    <div class="promo-card promo-cyan">
+                        <div class="promo-content">
+                            <div class="promo-text">
+                                <h3>Upto 35% off on Hourly Stays</h3>
+                                <p>Valid till 31 Dec</p>
+                            </div>
+                            <div class="coupon-pill">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="tag-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                                <span>RBSHORTSTAYS</span>
+                            </div>
+                        </div>
+                        <div class="promo-illust">
+                            <img src="https://www.redbus.in/steward/visuals/v2/RBSHORTSTAYS/RBSHORTSTAYS.png" alt="Illust" onerror="this.style.opacity='0';">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="zig-zag bottom"></div>
+        </section>
+    </main>
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About redBus</h3>
+                <ul>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Investor Relations</a></li>
+                    <li><a href="#">Contact us</a></li>
+                    <li><a href="#">Mobile version</a></li>
+                    <li><a href="#">redBus on mobile</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                    <li><a href="#">Offers</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Values</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Info</h3>
+                <ul>
+                    <li><a href="#">T&C</a></li>
+                    <li><a href="#">Privacy policy</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Global Sites</h3>
+                <ul>
+                    <li><a href="#">India</a></li>
+                    <li><a href="#">Singapore</a></li>
+                    <li><a href="#">Malaysia</a></li>
+                    <li><a href="#">Indonesia</a></li>
+                    <li><a href="#">Colombia</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Partners</h3>
+                <ul>
+                    <li><a href="#">Goibibo Bus</a></li>
+                    <li><a href="#">Goibibo Hotels</a></li>
+                    <li><a href="#">Makemytrip Hotels</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const roomsGuestsItem = document.querySelector('.rooms-guests-item');
+            const roomsDropdown = document.querySelector('.rooms-dropdown');
+            
+            const checkinItem = document.querySelector('.checkin-item');
+            const checkoutItem = document.querySelector('.checkout-item');
+            const dateDropdown = document.querySelector('.date-dropdown');
+
+            const cityItem = document.querySelector('.city-item');
+            const cityDropdown = document.querySelector('.city-dropdown');
+            const cityInput = document.getElementById('city-input');
+            const cityOptions = document.querySelectorAll('.city-option');
+            
+            if (cityItem && cityDropdown) {
+                // Focus toggles city dropdown
+                if (cityInput) {
+                    cityInput.addEventListener('focus', () => {
+                        cityDropdown.style.display = 'block';
+                        if (roomsDropdown) roomsDropdown.style.display = 'none';
+                        if (dateDropdown) dateDropdown.style.display = 'none';
+                    });
+                }
+                
+                // Alternatively clicking wrapper triggers focus
+                cityItem.addEventListener('click', (e) => {
+                    if (e.target.closest('.city-dropdown')) return;
+                    cityInput.focus();
+                });
+
+                // Selecting a city
+                cityOptions.forEach(option => {
+                    option.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        cityInput.value = option.innerText;
+                        cityDropdown.style.display = 'none';
+                    });
+                });
+            }
+            
+            if (roomsGuestsItem && roomsDropdown) {
+                roomsGuestsItem.addEventListener('click', (e) => {
+                    if(e.target.closest('.rooms-dropdown')) return;
+                    roomsDropdown.style.display = (roomsDropdown.style.display === 'none' || roomsDropdown.style.display === '') ? 'block' : 'none';
+                    if (dateDropdown) dateDropdown.style.display = 'none';
+                    if (cityDropdown) cityDropdown.style.display = 'none';
+                });
+            }
+
+            if (checkinItem && checkoutItem && dateDropdown) {
+                const toggleDateDropdown = (e) => {
+                    if(e.target.closest('.date-dropdown')) return;
+                    dateDropdown.style.display = (dateDropdown.style.display === 'none' || dateDropdown.style.display === '') ? 'block' : 'none';
+                    if (roomsDropdown) roomsDropdown.style.display = 'none';
+                    if (cityDropdown) cityDropdown.style.display = 'none';
+                };
+                checkinItem.addEventListener('click', toggleDateDropdown);
+                checkoutItem.addEventListener('click', toggleDateDropdown);
+            }
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', (e) => {
+                if (roomsGuestsItem && roomsDropdown && !roomsGuestsItem.contains(e.target)) {
+                    roomsDropdown.style.display = 'none';
+                }
+                if (checkinItem && checkoutItem && dateDropdown) {
+                    if (!checkinItem.contains(e.target) && !checkoutItem.contains(e.target) && !dateDropdown.contains(e.target)) {
+                        dateDropdown.style.display = 'none';
+                    }
+                }
+                if (cityItem && cityDropdown && !cityItem.contains(e.target)) {
+                    cityDropdown.style.display = 'none';
+                }
+            });
+            
+            // Rooms & Guests Step Logic
+            let counts = { rooms: 1, adults: 2, children: 0 };
+            const inputField = document.getElementById('rooms-guests-input');
+
+            const updateUI = () => {
+                if (!inputField) return;
+
+                document.getElementById('val-rooms').innerText = counts.rooms;
+                document.getElementById('val-adults').innerText = counts.adults;
+                document.getElementById('val-children').innerText = counts.children;
+
+                const rMinusBtn = document.getElementById('btn-rooms-minus');
+                if (counts.rooms <= 1) {
+                    rMinusBtn.classList.add('disabled');
+                    document.getElementById('icon-rooms-trash').style.display = 'block';
+                    document.getElementById('icon-rooms-minus').style.display = 'none';
+                } else {
+                    rMinusBtn.classList.remove('disabled');
+                    document.getElementById('icon-rooms-trash').style.display = 'none';
+                    document.getElementById('icon-rooms-minus').style.display = 'block';
+                }
+
+                const aMinusBtn = document.getElementById('btn-adults-minus');
+                if (counts.adults <= 1) {
+                    aMinusBtn.classList.add('disabled');
+                } else {
+                    aMinusBtn.classList.remove('disabled');
+                }
+
+                if (counts.children === 0) {
+                    document.getElementById('btn-children-add').style.display = 'block';
+                    document.getElementById('stepper-children').style.display = 'none';
+                } else {
+                    document.getElementById('btn-children-add').style.display = 'none';
+                    document.getElementById('stepper-children').style.display = 'flex';
+                    const cMinusBtn = document.getElementById('btn-children-minus');
+                    if (counts.children === 1) {
+                        cMinusBtn.classList.add('disabled');
+                        document.getElementById('icon-children-trash').style.display = 'block';
+                        document.getElementById('icon-children-minus').style.display = 'none';
+                    } else {
+                        cMinusBtn.classList.remove('disabled');
+                        document.getElementById('icon-children-trash').style.display = 'none';
+                        document.getElementById('icon-children-minus').style.display = 'block';
+                    }
+                }
+
+                // Update input rendering
+                let text = `${counts.rooms} Room`;
+                if(counts.rooms > 1) text += 's';
+                let guests = counts.adults + counts.children;
+                text += ` · ${guests} Guest`;
+                if(guests > 1) text += 's';
+                inputField.value = text;
+            };
+
+            const rPlus = document.getElementById('btn-rooms-plus');
+            if (rPlus) rPlus.addEventListener('click', (e) => { e.stopPropagation(); counts.rooms++; updateUI(); });
+            
+            const rMinus = document.getElementById('btn-rooms-minus');
+            if (rMinus) rMinus.addEventListener('click', (e) => { e.stopPropagation(); if (counts.rooms > 1) counts.rooms--; updateUI(); });
+
+            const aPlus = document.getElementById('btn-adults-plus');
+            if (aPlus) aPlus.addEventListener('click', (e) => { e.stopPropagation(); counts.adults++; updateUI(); });
+            
+            const aMinus = document.getElementById('btn-adults-minus');
+            if (aMinus) aMinus.addEventListener('click', (e) => { e.stopPropagation(); if (counts.adults > 1) counts.adults--; updateUI(); });
+
+            const cAdd = document.getElementById('btn-children-add');
+            if (cAdd) cAdd.addEventListener('click', (e) => { e.stopPropagation(); counts.children = 1; updateUI(); });
+
+            const cPlus = document.getElementById('btn-children-plus');
+            if (cPlus) cPlus.addEventListener('click', (e) => { e.stopPropagation(); counts.children++; updateUI(); });
+
+            const cMinus = document.getElementById('btn-children-minus');
+            if (cMinus) cMinus.addEventListener('click', (e) => { e.stopPropagation(); if (counts.children > 0) counts.children--; updateUI(); });
+
+            // Flash Deals Timer Logic
+            let timerHr = 2;
+            let timerMin = 2;
+            let timerSec = 53;
+            const hrEl = document.getElementById('timer-hr');
+            const minEl = document.getElementById('timer-min');
+            const secEl = document.getElementById('timer-sec');
+
+            if (hrEl && minEl && secEl) {
+                setInterval(() => {
+                    if (timerSec > 0) {
+                        timerSec--;
+                    } else if (timerMin > 0) {
+                        timerMin--;
+                        timerSec = 59;
+                    } else if (timerHr > 0) {
+                        timerHr--;
+                        timerMin = 59;
+                        timerSec = 59;
+                    }
+                    
+                    hrEl.innerText = timerHr.toString().padStart(2, '0');
+                    minEl.innerText = timerMin.toString().padStart(2, '0');
+                    secEl.innerText = timerSec.toString().padStart(2, '0');
+                }, 1000);
+            }
+            
+            // Carousel Scroll Logic
+            const hotelCarousel = document.getElementById('hotel-carousel');
+            const leftNav = document.querySelector('.left-nav');
+            const rightNav = document.querySelector('.right-nav');
+
+            if (hotelCarousel && leftNav && rightNav) {
+                const updateNavBtns = () => {
+                    leftNav.style.display = hotelCarousel.scrollLeft <= 0 ? 'none' : 'flex';
+                    rightNav.style.display = hotelCarousel.scrollLeft + hotelCarousel.clientWidth >= hotelCarousel.scrollWidth - 5 ? 'none' : 'flex';
+                };
+
+                hotelCarousel.addEventListener('scroll', updateNavBtns);
+                
+                leftNav.addEventListener('click', () => {
+                    hotelCarousel.scrollBy({ left: -340, behavior: 'smooth' });
+                });
+                
+                rightNav.addEventListener('click', () => {
+                    hotelCarousel.scrollBy({ left: 340, behavior: 'smooth' });
+                });
+                
+                // Initial check
+                window.addEventListener('resize', updateNavBtns);
+                setTimeout(updateNavBtns, 100);
+            }
+
+            // Search Hotels Logic
+            const searchBtn = document.querySelector('.search-btn');
+            const cityInputEl = document.getElementById('city-input');
+
+            const renderHotels = (hotels) => {
+                if (!hotelCarousel) return;
+                hotelCarousel.innerHTML = '';
+                
+                if (hotels.length === 0) {
+                    hotelCarousel.innerHTML = '<div style="padding: 2rem; color: #4b5563;">No hotels found.</div>';
+                    return;
+                }
+
+                hotels.forEach(hotel => {
+                    const card = `
+                        <div class="hotel-card">
+                            <div class="card-image-wrap">
+                                <img src="${hotel.imagePath}" alt="${hotel.name}" onerror="this.style.opacity='0';">
+                                <div class="card-rating">★ ${hotel.rating}</div>
+                            </div>
+                            <div class="card-ribbon">${hotel.discountRibbon}</div>
+                            <div class="card-details">
+                                <div class="card-header">
+                                    <span class="hotel-type">${hotel.type} · ${hotel.location}</span>
+                                    <span class="old-price">${hotel.oldPrice}</span>
+                                </div>
+                                <div class="card-title-row">
+                                    <h3 class="hotel-name">${hotel.name}</h3>
+                                    <span class="new-price">${hotel.newPrice}</span>
+                                </div>
+                                <div class="card-footer">
+                                    <span class="hotel-loc">${hotel.subLocation}</span>
+                                    <span class="per-night">Per night</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    hotelCarousel.insertAdjacentHTML('beforeend', card);
+                });
+                
+                // Re-initialize nav buttons after render
+                if (typeof updateNavBtns === 'function') setTimeout(updateNavBtns, 100);
+            };
+
+            const fetchHotels = (city = '') => {
+                const url = `/api/hotels/search${city ? '?city=' + city : ''}`;
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        renderHotels(data);
+                    })
+                    .catch(err => console.error('Error fetching hotels:', err));
+            };
+
+            if (searchBtn) {
+                searchBtn.addEventListener('click', () => {
+                    const city = cityInputEl ? cityInputEl.value : '';
+                    fetchHotels(city);
+                });
+            }
+
+            // Initial fetch to show some hotels
+            fetchHotels();
+
+        });
+    </script>
+</body>
 </html>
